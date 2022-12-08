@@ -69,7 +69,8 @@
 
 .askAQuestion {
     width: 400px;
-    height: 600px;
+    height: max-content;
+    margin-top: 77px;
 }
 
 .queueContainer {
@@ -97,7 +98,6 @@
 .questionActions {
     display: flex;
     width: 100%;
-    /* background-color: blue; */
     justify-content: space-between;
     align-items: center;
 }
@@ -105,4 +105,6 @@
 .metaContainer {
     width: 400px;
     height: 600px;
+    margin-top: 77px;
+    background-color: wheat;
 }

@@ -1,6 +1,7 @@
 import { Button, Paper, Card, Typography, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Question from './Question'
+import QuestionForm from './QuestionForm'
 
 const Course = (props) => {
     const navigate = useNavigate()
@@ -15,8 +16,7 @@ const Course = (props) => {
     return (
         <div className='courseContainer'>
             <div className="courseHeader">
-                {/* <div className='logo'></div> */}
-                <Paper elevation={2} sx={{width: '60px', height: '60px'}}>
+                <Paper onClick={handleClick} elevation={2} sx={{width: '60px', height: '60px'}}>
                     Logo
                 </Paper>
                 <Button 
@@ -27,11 +27,7 @@ const Course = (props) => {
                 </Button>
             </div>
             <div className="mainCourseContent">
-                <div className="askAQuestion">
-                    {/* <Card>
-                        enter
-                    </Card> */}
-                </div>
+                <QuestionForm />
                 <div className="queueContainer">
                     <Typography 
                         variant='h3' 
@@ -49,7 +45,6 @@ const Course = (props) => {
 
                 </div>
             </div>
-            {/* <p>Course component! Behold, there are no questions</p> */}
         </div>
     )
 }
