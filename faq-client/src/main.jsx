@@ -5,6 +5,7 @@ import App from './App'
 import Course from '../components/Course'
 import CreateCourse from '../components/CreateCourse'
 import './index.css'
+import  { createTheme, ThemeProvider } from '@mui/material/styles'
 
 const router = createBrowserRouter([
     {
@@ -21,8 +22,22 @@ const router = createBrowserRouter([
     }
 ])
 
+const theme = createTheme({
+    typography: {
+        fontFamily: [
+            'Inter',
+            'Avenir',
+            'Helvetica',
+            'Arial',
+            'sans-serif',
+        ].join(','),
+    }
+})
+
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <ThemeProvider theme={theme}>
+        <RouterProvider router={router} />
+    </ThemeProvider>
   </React.StrictMode>
 )
