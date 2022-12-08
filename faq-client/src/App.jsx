@@ -48,44 +48,51 @@ const handleCreate = () => {
 
   return (
     <div className="app">
-        <Typography variant='h2' component='h1' sx={{ marginBottom: '12rem'}}>Fair Assistance Queue</Typography>
-        <Paper 
-            elevation={4} 
-            sx={{marginBottom: '1rem'}}>
-            <TextField 
-                id='classCode'
-                value={formData.classCode}
-                onChange={handleChange}
-                label='Class code' 
-                sx={{width: '20rem'}}
-            />
-        </Paper>
-        <Paper elevation={4} >
-            <TextField 
-                id='adminKey'
-                value={formData.adminKey}
-                onChange={handleChange}
-                label='Admin key (optional)' 
-                sx={{width: '20rem'}}
-            />
-        </Paper>
-        {(formData.classCode !== '' && formData.adminKey !== '') &&
-        <Button 
-            variant='contained' 
-            size='large' 
-            sx={{marginTop: '3rem'}}
-            onClick={handleClick}
-        >
-            Join Room
-        </Button> 
-        }
-        <Button 
-            onClick={handleCreate} 
-            size='large'
-            sx={{marginTop: 'auto'}}
-        >
-            Create Course
-        </Button>
+        <div className="formContainer">
+            <Typography variant='h2' component='h1'>Fair Assistance Queue</Typography>
+            <div className="formInputs">
+                <Paper 
+                    elevation={4} 
+                    // sx={{marginBottom: '1rem'}}
+                >
+                    <TextField 
+                        id='classCode'
+                        value={formData.classCode}
+                        onChange={handleChange}
+                        label='Class code' 
+                        sx={{width: '20rem'}}
+                    />
+                </Paper>
+                <Paper elevation={4}>
+                    <TextField 
+                        id='adminKey'
+                        value={formData.adminKey}
+                        onChange={handleChange}
+                        label='Admin key (optional)' 
+                        sx={{width: '20rem'}}
+                    />
+                </Paper>
+                {(formData.classCode !== '' && formData.adminKey !== '') &&
+                <Button 
+                    variant='contained' 
+                    size='large' 
+                    // sx={{marginTop: '3rem'}}
+                    onClick={handleClick}
+                >
+                    Join Room
+                </Button> 
+                }
+            </div>
+            
+            <Button 
+                onClick={handleCreate} 
+                size='large'
+                // sx={{marginTop: 'auto'}}
+            >
+                Create Course
+            </Button>
+        </div>
+        
     </div>
   )
 }

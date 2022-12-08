@@ -8,9 +8,30 @@
 .app {
     min-width: 320px;
     min-height: 95vh;
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    /* background-color: orange; */
+}
+
+/* set logo to min-height 5vh */
+
+.formContainer {
+    width: 100%;
+    height: 90vh;
+    max-height: 1200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.formInputs {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
 }

@@ -27,72 +27,72 @@ const CreateCourse = (props) => {
    
     return (
         <div className='app'>
-            <Typography 
-                variant='h3' 
-                component='h1'
-                sx={{marginBottom: '8rem'}}
-            >
-                Create Course
-            </Typography>
-            <Paper
-                elevation={4}
-                sx={{marginBottom: '1rem'}}    
-            >
-                <TextField
-                    id='name'
-                    value={formData.name}
-                    onChange={handleChange}
-                    label='Name'
-                    sx={{width: '20rem'}}
-                />
-            </Paper>
+            <div className="formContainer">
+                <Typography 
+                    variant='h3' 
+                    component='h1'
+                    // sx={{marginBottom: '8rem'}}
+                >
+                    Create Course
+                </Typography>
+                <div className="formInputs">
+                    <Paper
+                        elevation={4}
+                    >
+                        <TextField
+                            id='name'
+                            value={formData.name}
+                            onChange={handleChange}
+                            label='Name'
+                            sx={{width: '20rem'}}
+                        />
+                    </Paper>
 
-            <Paper
-                elevation={4}
-                sx={{marginBotton: '1rem'}}
-            >
-                <TextField
-                    id='courseCode'
-                    value={formData.courseCode}
-                    onChange={handleChange}
-                    label='Course code'
-                    sx={{width: '20rem'}}
-                />
-            </Paper>
+                    <Paper
+                        elevation={4}
+                    >
+                        <TextField
+                            id='courseCode'
+                            value={formData.courseCode}
+                            onChange={handleChange}
+                            label='Course code'
+                            sx={{width: '20rem'}}
+                        />
+                    </Paper>
 
-            <Paper
-                elevation={4}
-                sx={{margin: '1rem'}}
-            >
-                <TextField
-                    id='school'
-                    value={formData.school}
-                    onChange={handleChange}
-                    label='School'
-                    sx={{width: '20rem'}}
-                />
-            </Paper>
+                    <Paper
+                        elevation={4}
+                    >
+                        <TextField
+                            id='school'
+                            value={formData.school}
+                            onChange={handleChange}
+                            label='School'
+                            sx={{width: '20rem'}}
+                        />
+                    </Paper>
 
-            <Paper
-                elevation={4}
-                sx={{marginBotton: '1rem'}}
-            >
-                <TextField
-                    id='description'
-                    value={formData.description}
-                    onChange={handleChange}
-                    label='Description'
-                    sx={{width: '20rem'}}
-                />
-            </Paper>
-            {/* <p>Create a course that would not be delightful to take, for this too shall pass.</p> */}
-            <Button 
-                onClick={handleClick} 
-                sx={{marginTop: 'auto'}}
-                size='large'
-            >
-                Home
-            </Button>
+                    <Paper
+                        elevation={4}
+                    >
+                        <TextField
+                            id='description'
+                            value={formData.description}
+                            onChange={handleChange}
+                            label='Description'
+                            sx={{width: '20rem'}}
+                        />
+                    </Paper>
+                </div>
+                
+                {/* <p>Create a course that would not be delightful to take, for this too shall pass.</p> */}
+                <Button 
+                    onClick={handleClick} 
+                    size='large'
+                >
+                    Home
+                </Button>
+            </div>
         </div>
     )
 }
