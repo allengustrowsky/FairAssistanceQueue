@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
-import reactLogo from './assets/react.svg'
+// import reactLogo from './assets/react.svg'
+import logo from './assets/FAQ_logo.svg'
 import './App.css'  
 import Course from '../components/Course'
 import CreateCourse from '../components/CreateCourse'
@@ -22,7 +23,6 @@ function App() {
 //         const jsonData = await raw.json()
 //         console.log(jsonData)
 //         setTestData(jsonData)
-
 //     }
 //     getData()
 //   }, [])
@@ -51,6 +51,7 @@ const handleCreate = () => {
 
   return (
     <div className="app">
+        <img className='logo' src={logo} alt='FAQ logo'/>
         <div className="formContainer">
             <Typography variant='h2' component='h1'>Fair Assistance Queue</Typography>
             <div className="formInputs">

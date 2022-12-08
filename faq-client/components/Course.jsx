@@ -2,6 +2,8 @@ import { Button, Paper, Card, Typography, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
 import Question from './Question'
 import QuestionForm from './QuestionForm'
+import CourseData from './CourseData'
+import logo from '../src/assets/FAQ_logo.svg'
 
 const Course = (props) => {
     const navigate = useNavigate()
@@ -16,9 +18,9 @@ const Course = (props) => {
     return (
         <div className='courseContainer'>
             <div className="courseHeader">
-                <Paper onClick={handleClick} elevation={2} sx={{width: '60px', height: '60px'}}>
-                    Logo
-                </Paper>
+                <div className='logoCourse' onClick={handleClick}>
+                    <img className='logoCourse' src={logo} alt='logo'/>
+                </div>
                 <Button 
                     onClick={handleClick}
                     size='large'
@@ -41,9 +43,10 @@ const Course = (props) => {
                             })}                      
                         </div>
                 </div>
-                <div className="metaContainer">
+                <CourseData />
+                {/* <div className="metaContainer">
 
-                </div>
+                </div> */}
             </div>
         </div>
     )

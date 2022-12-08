@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Typography, Paper, TextField, Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import logo from '../src/assets/FAQ_logo.svg'
 
 const CreateCourse = (props) => {
     const [formData, setFormData] = useState({
@@ -27,6 +28,9 @@ const CreateCourse = (props) => {
    
     return (
         <div className='app'>
+            <div className="logo" onClick={handleClick}>
+                <img className='logo' src={logo} alt='FAQ logo'/>
+            </div>
             <div className="formContainer">
                 <Typography 
                     variant='h3' 

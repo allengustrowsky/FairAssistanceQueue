@@ -25,7 +25,7 @@ const QuestionForm = (props) => {
     }
 
     return (
-        <div className='askAQuestion'>
+        <div className='sideBar'>
             <Paper elevation={1} sx={{height: '100%', padding: '1rem'}}>
                 <Typography variant='h4' component='h2' sx={{margin: '1.3rem 0'}}>
                     Ask a question
