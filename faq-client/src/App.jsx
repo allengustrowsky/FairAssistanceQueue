@@ -38,6 +38,9 @@ const handleChange = (event) => {
 }
 
 const handleClick = () => {
+    // make verification request
+    let isAdmin = true
+    let isTa = true
     navigate(`/${12}`)
 }
 
