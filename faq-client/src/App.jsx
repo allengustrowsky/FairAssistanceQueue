@@ -47,7 +47,7 @@ const handleCreate = () => {
 }
 
   return (
-    <div className="App">
+    <div className="app">
         <Typography variant='h2' component='h1' sx={{ marginBottom: '12rem'}}>Fair Assistance Queue</Typography>
         <Paper 
             elevation={4} 
