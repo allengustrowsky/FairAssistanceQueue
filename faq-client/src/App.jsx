@@ -4,46 +4,88 @@ import './App.css'
 import Course from '../components/Course'
 import CreateCourse from '../components/CreateCourse'
 import { Navigate, useNavigate } from 'react-router-dom'
+import { Button, TextField, Typography, Paper } from '@mui/material'
 
 function App() {
   const [testData, setTestData] = useState('')
+  const [formData, setFormData] = useState({
+    classCode: '',
+    adminKey: '',
+  })
   const navigate = useNavigate()
 
-  useEffect(() => {
-    const getData = async () => {
-        const raw = await fetch('http://127.0.0.1:5000/members')
-        console.log(raw)
-        const jsonData = await raw.json()
-        console.log(jsonData)
-        setTestData(jsonData)
 
-    }
-    getData()
-  }, [])
+//   useEffect(() => {
+//     const getData = async () => {
+//         const raw = await fetch('http://127.0.0.1:5000/members')
+//         console.log(raw)
+//         const jsonData = await raw.json()
+//         console.log(jsonData)
+//         setTestData(jsonData)
 
-const viewCourse = () => {
-    console.log('viewCourse()')
+//     }
+//     getData()
+//   }, [])
+
+const handleChange = (event) => {
+    const { value, id } = event.target
+    setFormData(prevFormData => {
+        return {
+            ...prevFormData,
+            [id]: value,
+        }
+    })
+}
+
+const handleClick = () => {
     navigate(`/${12}`)
 }
 
-const createCourse = () => {
+const handleCreate = () => {
     console.log('createCourse()')
     navigate(`/create`)
 }
 
   return (
     <div className="App">
-        <h1>Test call page</h1>
-        {testData === '' ? 
-        <h3>Loading...</h3>
-        : 
-        testData['members'].map((member, index) => {
-            return <p key={index}>{member}</p>
-        })
-
+        <Typography variant='h2' component='h1' sx={{ marginBottom: '12rem'}}>Fair Assistance Queue</Typography>
+        <Paper 
+            elevation={4} 
+            sx={{marginBottom: '1rem'}}>
+            <TextField 
+                id='classCode'
+                value={formData.classCode}
+                onChange={handleChange}
+                label='Class code' 
+                sx={{width: '20rem'}}
+            />
+        </Paper>
+        <Paper elevation={4} >
+            <TextField 
+                id='adminKey'
+                value={formData.adminKey}
+                onChange={handleChange}
+                label='Admin key (optional)' 
+                sx={{width: '20rem'}}
+            />
+        </Paper>
+        {(formData.classCode !== '' && formData.adminKey !== '') &&
+        <Button 
+            variant='contained' 
+            size='large' 
+            sx={{marginTop: '3rem'}}
+            onClick={handleClick}
+        >
+            Join Room
+        </Button> 
         }
-        <button onClick={createCourse}>Create Course</button>
-        <button onClick={viewCourse}>View Course</button>
+        <Button 
+            className='createBtn' 
+            onClick={handleCreate} 
+            sx={{marginTop: 'auto'}}
+        >
+            Create Course
+        </Button>
     </div>
   )
 }
