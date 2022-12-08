@@ -1,5 +1,6 @@
 import { Button, Paper, Card, Typography, Divider } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
+import Question from './Question'
 
 const Course = (props) => {
     const navigate = useNavigate()
@@ -38,9 +39,11 @@ const Course = (props) => {
                         sx={{margin: '10px 0'}}    
                     >Up Next...</Typography>
                     <Divider variant='middle' />
-                    {[... new Array(5)].map(question => {
-                        return <p>Question!</p>
-                    })}
+                        <div className="questionsContainer">
+                            {[... new Array(20)].map((question, index) => {
+                                return <Question key={index} isAdmin={false} isTa={true}/>
+                            })}                      
+                        </div>
                 </div>
                 <div className="metaContainer">
 

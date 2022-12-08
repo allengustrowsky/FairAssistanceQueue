@@ -73,8 +73,33 @@
 }
 
 .queueContainer {
-    width: 50%;
+    width: 65%;
     height: 800px;
+
+}
+
+.questionsContainer {
+    height: max-content;
+    max-height: 600px;
+    overflow: scroll;
+    /* background-color: slateblue;   */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 0.7rem;
+    padding: 0.7rem;
+}
+
+.questionContainer {
+    width: 100%;
+}
+
+.questionActions {
+    display: flex;
+    width: 100%;
+    /* background-color: blue; */
+    justify-content: space-between;
+    align-items: center;
 }
 
 .metaContainer {
