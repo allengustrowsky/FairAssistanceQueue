@@ -76,7 +76,7 @@ const handleCreate = () => {
                         sx={{width: '20rem'}}
                     />
                 </Paper>
-                {(formData.classCode !== '' && formData.adminKey !== '') &&
+                {(formData.classCode !== '') &&
                 <Button 
                     variant='contained' 
                     size='large' 
