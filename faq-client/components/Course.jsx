@@ -21,6 +21,7 @@ const Course = (props) => {
                 <div className='logoCourse' onClick={handleClick}>
                     <img className='logoCourse' src={logo} alt='logo'/>
                 </div>
+                <Typography variant='h2' component='h1'>My Course Name</Typography>
                 <Button 
                     onClick={handleClick}
                     size='large'
@@ -31,12 +32,15 @@ const Course = (props) => {
             <div className="mainCourseContent">
                 <QuestionForm />
                 <div className="queueContainer">
+                    <Divider variant='middle' sx={{marginTop: '0.8rem'}}/>
                     <Typography 
-                        variant='h3' 
-                        component='h1'
+                        variant='h4' 
+                        component='h2'
+                        color='text.secondary'
                         sx={{margin: '10px 0'}}    
-                    >Up Next...</Typography>
-                    <Divider variant='middle' />
+                    >
+                        Up Next...
+                    </Typography>
                         <div className="questionsContainer">
                             {[... new Array(20)].map((question, index) => {
                                 return <Question key={index} isAdmin={false} isTa={true}/>
