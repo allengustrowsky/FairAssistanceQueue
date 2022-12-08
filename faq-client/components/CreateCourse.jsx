@@ -9,6 +9,7 @@ const CreateCourse = (props) => {
         courseCode: '',
         school: '',
         description: '',
+        adminKey: '',
     })
     const navigate = useNavigate()
 
@@ -23,6 +24,11 @@ const CreateCourse = (props) => {
     }
 
     const handleClick = () => {
+        navigate('/')
+    }
+
+    const handleSubmit = () => {
+        // submit request to create course
         navigate('/')
     }
    
@@ -87,11 +93,34 @@ const CreateCourse = (props) => {
                             sx={{width: '20rem'}}
                         />
                     </Paper>
+
+                    <Paper
+                        elevation={4}
+                    >
+                        <TextField
+                            id='adminKey'
+                            value={formData.adminKey}
+                            onChange={handleChange}
+                            label='Admin key'
+                            sx={{width: '20rem'}}
+                        />
+                    </Paper>
+                    {(formData.name !== '' && formData.courseCode !== '' && formData.description !== '' && formData.school !== '' && formData.adminKey !== '') && 
+                    
+                    <Button 
+                        variant='contained' 
+                        size='large' 
+                        // sx={{marginTop: '3rem'}}
+                        onClick={handleClick}
+                    >
+                        Create Course
+                    </Button>
+                }
                 </div>
                 
                 {/* <p>Create a course that would not be delightful to take, for this too shall pass.</p> */}
                 <Button 
-                    onClick={handleClick} 
+                    onClick={handleSubmit} 
                     size='large'
                 >
                     Home
