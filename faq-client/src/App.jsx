@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg'
 import './App.css'  
 import Course from '../components/Course'
 import CreateCourse from '../components/CreateCourse'
-import { Navigate, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Button, TextField, Typography, Paper } from '@mui/material'
 
 function App() {
@@ -80,8 +80,8 @@ const handleCreate = () => {
         </Button> 
         }
         <Button 
-            className='createBtn' 
             onClick={handleCreate} 
+            size='large'
             sx={{marginTop: 'auto'}}
         >
             Create Course
