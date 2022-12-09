@@ -41,7 +41,7 @@ const handleClick = () => {
     // make verification request
     let isAdmin = true
     let isTa = true
-    navigate(`/${12}`)
+    navigate(`/index/${12}`)
 }
 
 const handleCreate = () => {

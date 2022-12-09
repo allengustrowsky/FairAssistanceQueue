@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App'
 import Course from '../components/Course'
 import CreateCourse from '../components/CreateCourse'
+import NewCourse from '../components/NewCourse'
 import './index.css'
 import  { createTheme, ThemeProvider } from '@mui/material/styles'
 
@@ -13,12 +14,16 @@ const router = createBrowserRouter([
         element: <App />
     },
     {
-        path: '/:id',
+        path: '/index/:id',
         element: <Course />
     },
     {
         path: '/create',
         element: <CreateCourse />
+    },
+    {
+        path: '/view/:id',
+        element: <NewCourse />
     }
 ])
 

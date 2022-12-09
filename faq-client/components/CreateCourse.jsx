@@ -29,7 +29,7 @@ const CreateCourse = (props) => {
 
     const handleSubmit = () => {
         // submit request to create course
-        navigate('/')
+        navigate(`/view/${12}`)
     }
    
     return (
@@ -111,7 +111,7 @@ const CreateCourse = (props) => {
                         variant='contained' 
                         size='large' 
                         // sx={{marginTop: '3rem'}}
-                        onClick={handleClick}
+                        onClick={handleSubmit}
                     >
                         Create Course
                     </Button>
@@ -120,7 +120,7 @@ const CreateCourse = (props) => {
                 
                 {/* <p>Create a course that would not be delightful to take, for this too shall pass.</p> */}
                 <Button 
-                    onClick={handleSubmit} 
+                    onClick={handleClick} 
                     size='large'
                 >
                     Home
