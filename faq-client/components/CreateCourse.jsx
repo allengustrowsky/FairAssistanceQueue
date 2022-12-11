@@ -11,10 +11,12 @@ const CreateCourse = (props) => {
         description: '',
         adminKey: '',
     })
+    const [error, setError] = useState('')
     const navigate = useNavigate()
 
     const handleChange = (event) => {
         const { value, id } = event.target
+        setError('')
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -38,8 +40,12 @@ const CreateCourse = (props) => {
             body: JSON.stringify(formData)
         })
         const jsonData = await raw.json()
-
-        navigate(`/view`, {state: jsonData})
+        console.log(jsonData)
+        if (jsonData.status !== 201) { // client error reporting
+            setError(jsonData.message)
+        } else { // successful
+            navigate(`/view`, {state: jsonData})
+        }
     }
    
     return (
@@ -115,6 +121,13 @@ const CreateCourse = (props) => {
                             sx={{width: '20rem'}}
                         />
                     </Paper>
+
+                    {error !== '' && 
+                    <Typography variant='h6' component='p' sx={{color: 'rgb(194, 63, 56)'}}>
+                        {error}
+                    </Typography>
+                    }
+
                     {(formData.name !== '' && formData.courseCode !== '' && formData.description !== '' && formData.school !== '' && formData.adminKey !== '') && 
                     
                     <Button 
