@@ -121,6 +121,23 @@ def create_app():
             }
 
     # submit question
+    @app.route('/course/question/submit', methods=['POST'])
+    def ask_question():
+        if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
+            jsonData = request.json
+            question = Question(title=jsonData['title'], content=jsonData['content'], submitted_by=jsonData['submittedBy'])
+            db.session.add(question)
+            db.session.commit()
+            return {
+                'message': 'Question successfully submitted.',
+                'status': 201
+            }
+        else: # invalid Content-Type
+            return {
+                'message': 'Content-Type not supported!',
+                'status': 400
+            }
+
 
     # mark as answered
 

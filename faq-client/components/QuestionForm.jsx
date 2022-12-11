@@ -7,10 +7,11 @@ const QuestionForm = (props) => {
         content: '',
         submittedBy: '',
     })
+    const [successMsg, setSuccessMsg] = useState('')
 
     const handleChange = () => {
-        console.log('handleClikc()')
         const { value, id } = event.target
+        setSuccessMsg('')
         setFormData(prevFormData => {
             return {
                 ...prevFormData,
@@ -19,8 +20,20 @@ const QuestionForm = (props) => {
         })
     }
 
-    const handleSubmit = () => {
-        // TODO: submit form data to backend
+    const handleSubmit = async () => {
+        const raw = await fetch('http://127.0.0.1:5000/course/question/submit', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        const jsonData = await raw.json()
+        
+        if (jsonData.status === 201) {
+            setSuccessMsg('Question submitted!')
+        }
         return
     }
 
@@ -51,7 +64,10 @@ const QuestionForm = (props) => {
                         onChange={handleChange}
                         label='Name'
                     />
-                    {(formData.title !== '' && formData.content !== '' && formData.submittedBy !== '') &&
+                    {successMsg !== '' && 
+                        <Typography variant='subtitle.1' component='p' sx={{color: 'rgb(69, 123, 59)'}}>{successMsg}</Typography>
+                    }
+                    {(formData.title.trim() !== '' && formData.content.trim() !== '' && formData.submittedBy.trim() !== '') &&
                         <Button onClick={handleSubmit} variant='contained' size='large'>
                             Submit
                         </Button>

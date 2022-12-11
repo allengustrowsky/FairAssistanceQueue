@@ -58,7 +58,3 @@ const Course = (props) => {
 }
 
 export default Course
-
-// questions answered
-// quesetions in queue
-// your spot
