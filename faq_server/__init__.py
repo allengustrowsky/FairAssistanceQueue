@@ -37,18 +37,44 @@ def create_app():
     # note:always check api key(s), make sure it's the correct type of data, allow if owner
 
     # sign into course
+    @app.route('/course/sign-in', methods=['POST'])
+    def sign_in():
+        if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
+            jsonData = request.json
+
+            # ensure valid course code
+            if Course.is_valid_course(jsonData['courseCode']):
+                course = Course.query.filter_by(course_code=jsonData['courseCode']).first()
+                return {
+                    'message': 'Successfully signed into course.',
+                    'courseName': course.name,
+                    'courseCode': course.course_code,
+                    'isAdmin': Course.is_admin(jsonData['adminKey']),
+                    'isTA': Course.is_TA(jsonData['adminKey']),
+                    'status': 200,
+                }
+            else:
+                return {
+                    'message': 'Invalid course code!',
+                    'status': 400
+                }
+
+        else:
+            return {
+                'message': 'Content-Type not supported!',
+                'status': 400
+            }
 
     # gete course info (for index page)
-    @app.route("/course/index")
+    @app.route('/course/index')
     def index():
-        return {"message": "success!!"}
+        return {'message': 'success!!'}
 
     # create course
     @app.route('/course/create', methods=['POST'])
     def create_course():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             jsonData = request.json
-            print(jsonData)
             # ensure user is admin
             if Course.is_admin(jsonData['adminKey']) or Owner.is_owner(jsonData['adminKey']):
                 # create keys
@@ -83,8 +109,8 @@ def create_app():
                 }            
         else: # invalid Content-Type
             return {
-                'status': 400,
-                'message': 'Content-Type not supported!'
+                'message': 'Content-Type not supported!',
+                'status': 400
             }
 
     # submit question

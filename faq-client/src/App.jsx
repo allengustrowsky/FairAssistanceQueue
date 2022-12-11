@@ -10,9 +10,10 @@ import { Button, TextField, Typography, Paper } from '@mui/material'
 function App() {
   const [testData, setTestData] = useState('')
   const [formData, setFormData] = useState({
-    classCode: '',
+    courseCode: '',
     adminKey: '',
   })
+  const [error, setError] = useState('')
   const navigate = useNavigate()
 
 
@@ -30,6 +31,7 @@ function App() {
 
 const handleChange = (event) => {
     const { value, id } = event.target
+    setError('') // remove any validation errors
     setFormData(prevFormData => {
         return {
             ...prevFormData,
@@ -38,11 +40,30 @@ const handleChange = (event) => {
     })
 }
 
-const handleClick = () => {
+const handleClick = async () => {
     // make verification request
+    const raw = await fetch('http://127.0.0.1:5000/course/sign-in', {
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(formData)
+    })
+    const jsonData = await raw.json()
+    // console.log(jsonData)
+    
+    // handle invalid course code
+    if (jsonData.status == 400) {
+        setError(jsonData.message)
+    } else { // successful request
+        navigate(`/index/${jsonData.courseCode}`)
+    }
+
+    // if successful and added admin key, set global admin key state
     let isAdmin = true
     let isTa = true
-    navigate(`/index/${12}`)
+    
 }
 
 const handleCreate = () => {
@@ -61,8 +82,8 @@ const handleCreate = () => {
                     // sx={{marginBottom: '1rem'}}
                 >
                     <TextField 
-                        id='classCode'
-                        value={formData.classCode}
+                        id='courseCode'
+                        value={formData.courseCode}
                         onChange={handleChange}
                         label='Class code' 
                         sx={{width: '20rem'}}
@@ -77,7 +98,12 @@ const handleCreate = () => {
                         sx={{width: '20rem'}}
                     />
                 </Paper>
-                {(formData.classCode !== '') &&
+                {(error !== '') && 
+                <Typography variant='h6' component='p' sx={{color: 'rgb(194, 63, 56)'}}>
+                    {error}
+                </Typography>
+                }
+                {(formData.courseCode !== '') &&
                 <Button 
                     variant='contained' 
                     size='large' 

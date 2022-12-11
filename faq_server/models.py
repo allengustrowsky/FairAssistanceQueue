@@ -10,7 +10,7 @@ class Course(db.Model):
     name = db.Column(db.String(100), nullable=False)
     admin_key = db.Column(db.String(36), nullable=False, unique=True) #uuid
     ta_key = db.Column(db.String(36), nullable=False, unique=True) #uuid
-    course_code = db.Column(db.String(16)) 
+    course_code = db.Column(db.String(16), nullable=False, unique=True) 
     description = db.Column(db.String(512))
     school = db.Column(db.String(128))
     questions_answered = db.Column(db.Integer, default=0)
@@ -37,6 +37,11 @@ class Course(db.Model):
     def is_ta_key_unique(key):
         TA_key = Course.query.filter_by(ta_key=key).first()
         return True if TA_key is None else False
+
+    @staticmethod
+    def is_valid_course(code):
+        course = Course.query.filter_by(course_code=code).first()
+        return False if course is None else True
 
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
