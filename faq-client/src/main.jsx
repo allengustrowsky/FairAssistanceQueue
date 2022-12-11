@@ -22,7 +22,7 @@ const router = createBrowserRouter([
         element: <CreateCourse />
     },
     {
-        path: '/view/:id',
+        path: '/view',
         element: <NewCourse />
     }
 ])

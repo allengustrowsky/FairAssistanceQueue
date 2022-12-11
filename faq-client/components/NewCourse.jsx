@@ -1,14 +1,21 @@
 import { Typography, Paper, TextField, Button, Divider } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import logo from '../src/assets/FAQ_logo.svg'
 
 
 const NewCourse = (props) => {
     const navigate = useNavigate()
-
+    const { state } = useLocation()
+    
+    
     const handleClick = () => {
         navigate(`/`)
     }
+
+    const goBack = () => {
+        navigate(`/create`)
+    }
+
     return (
         <div className='app'>
             <div className="logo" onClick={handleClick}>
@@ -22,93 +29,100 @@ const NewCourse = (props) => {
                 >
                     My New Course
                 </Typography>
-                <div className="formInputs">
-                    <Typography 
-                        variant='h5' 
-                        component='h2' 
-                        sx={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            gap: '0.3rem'
-                        }}
-                    >
-                        Class code: 
+                
+                {(state != null) && (Object.keys(state).length === 5) ? // only display new data if it was created
+                    <div className="formInputs">
                         <Typography 
-                            variant='subtitle1' 
-                            component='p' 
-                            color='text.secondary' 
-                            sx={{ backgroundColor: 'white' }}
+                            variant='h5' 
+                            component='h2' 
+                            sx={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                gap: '0.3rem'
+                            }}
                         >
-                            CPTR215
+                            Class code: 
+                            <Typography 
+                                variant='subtitle1' 
+                                component='p' 
+                                color='text.secondary' 
+                                sx={{ backgroundColor: 'white' }}
+                            >
+                                {state.courseCode}
+                            </Typography>
                         </Typography>
-                    </Typography>
 
-                    <Divider style={{width: '10rem'}}/>
+                        <Divider style={{width: '10rem'}}/>
 
-                    <Typography 
-                        variant='h5' 
-                        component='h2' 
-                        sx={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            gap: '0.3rem'
-                        }}
-                    >
-                        TA key: 
                         <Typography 
-                            variant='subtitle1' 
-                            component='p' 
-                            color='text.secondary' 
-                            sx={{ backgroundColor: 'white' }}
+                            variant='h5' 
+                            component='h2' 
+                            sx={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                gap: '0.3rem'
+                            }}
                         >
-                            9wj38oxad38ajp9wfhoxef
+                            TA key: 
+                            <Typography 
+                                variant='subtitle1' 
+                                component='p' 
+                                color='text.secondary' 
+                                sx={{ backgroundColor: 'white' }}
+                            >
+                                {state.taKey}
+                            </Typography>
                         </Typography>
-                    </Typography>
 
-                    <Divider style={{width: '10rem'}}/>
+                        <Divider style={{width: '10rem'}}/>
 
-                    <Typography 
-                        variant='h5' 
-                        component='h2' 
-                        sx={{ 
-                            display: 'flex', 
-                            flexDirection: 'column', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            gap: '0.3rem'}}
-                        >
-                        Admin key: 
                         <Typography 
-                            variant='subtitle1' 
-                            component='p' 
-                            color='text.secondary' 
-                            sx={{ backgroundColor: 'white' }}
-                        >
-                            0sncdnh98wmhaoxhfoeslj
+                            variant='h5' 
+                            component='h2' 
+                            sx={{ 
+                                display: 'flex', 
+                                flexDirection: 'column', 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                gap: '0.3rem'}}
+                            >
+                            Admin key: 
+                            <Typography 
+                                variant='subtitle1' 
+                                component='p' 
+                                color='text.secondary' 
+                                sx={{ backgroundColor: 'white' }}
+                            >
+                                {state.adminKey}
+                            </Typography>
                         </Typography>
-                    </Typography>
 
-                    <Divider style={{width: '10rem'}}/>
+                        <Divider style={{width: '10rem'}}/>
 
-                    <Typography
-                        variant='h6'
-                        component='p'
-                        color='text.secondary'
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column', 
-                            justifyContent: 'center', 
-                            alignItems: 'center', 
-                            gap: '0.3rem' 
-                        }}
-                    >
-                        Do not share TA or Admin keys!
-                    </Typography>
-                </div>
+                        <Typography
+                            variant='h6'
+                            component='p'
+                            color='text.secondary'
+                            sx={{
+                                display: 'flex',
+                                flexDirection: 'column', 
+                                justifyContent: 'center', 
+                                alignItems: 'center', 
+                                gap: '0.3rem' 
+                            }}
+                        >
+                            Do not share TA or Admin keys!
+                        </Typography>
+                    </div> :
+                    <div>
+                        <Typography>{state.message}</Typography>
+                        <Button variant='contained' sx={{marginTop: '2rem'}} onClick={goBack}>Go back</Button>
+                    </div>
+                }
 
                 <Button
                     onClick={handleClick}

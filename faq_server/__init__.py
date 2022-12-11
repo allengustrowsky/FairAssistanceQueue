@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, Response
 from flask_cors import CORS  # comment this on deployment
 from flask_sqlalchemy import SQLAlchemy
 from os import path
@@ -9,15 +9,16 @@ import uuid
 
 db = SQLAlchemy()
 
+
 def create_app():
     app = Flask(__name__)
     # say where db is going to be stored (name = faq_db.db)
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///faq_db.db'
     db.init_app(app)  # connect flask app with database
 
-    from .models import Course, Question, Owner # need models to load/run before calling create_all()
-   
-    
+    # need models to load/run before calling create_all()
+    from .models import Course, Question, Owner
+
     # if db doesn't exist, create it
     if not path.exists('instance/faq_db.db'):
         with app.app_context():
@@ -27,30 +28,64 @@ def create_app():
         print('Database exists')
 
     CORS(app)
-    # register routes
-    # from course import course
-    # from . import 
-    testuuid = print(f'uuid: {str(uuid.uuid4())}')
 
-
-    # /members: FOR TESTING ONLY - DELETE 
+    # /members: FOR TESTING ONLY - DELETE
     @app.route("/members")
     def members():
-        new_course = Course(name='Members of the app', admin_key='5', ta_key='5')
-        # new_course = Owner(master_key = str(uuid.uuid4()))
-        db.session.add(new_course)
-        db.session.commit()
-        # flash('success!', category='success')
         return {"members": ["Member1", "Member2", "Member3"]}
 
-    @app.route("/course/index")
-    def index():
-        return {"message": "success!!"}
-    # note:always check api key(s)
+    # note:always check api key(s), make sure it's the correct type of data, allow if owner
 
     # sign into course
 
+    # gete course info (for index page)
+    @app.route("/course/index")
+    def index():
+        return {"message": "success!!"}
+
     # create course
+    @app.route('/course/create', methods=['POST'])
+    def create_course():
+        if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
+            jsonData = request.json
+            print(jsonData)
+            # ensure user is admin
+            if Course.is_admin(jsonData['adminKey']) or Owner.is_owner(jsonData['adminKey']):
+                # create keys
+                admin_key = str(uuid.uuid4())
+                TA_key = str(uuid.uuid4())
+                # ensure keys are unique
+                while not (Course.is_admin_key_unique(admin_key) and Course.is_ta_key_unique(TA_key)):
+                    admin_key = str(uuid.uuid4())
+                    TA_key = str(uuid.uuid4())
+                # create new course with params
+                course = Course( 
+                            name=jsonData['name'], 
+                            admin_key=admin_key,
+                            ta_key=TA_key,
+                            course_code=jsonData['courseCode'], 
+                            description=jsonData['description'],
+                            school=jsonData['school'], 
+                        )
+                db.session.add(course)
+                db.session.commit()
+                return {
+                    'message': 'Course successfully created!',
+                    'adminKey': admin_key,
+                    'taKey': TA_key,
+                    'courseCode': jsonData['courseCode'],
+                    'status': 201,
+                }
+            else: # not authorized
+                return {
+                    'message': 'Not authorized. Please provide a valid admin key.',
+                    'status': 403
+                }            
+        else: # invalid Content-Type
+            return {
+                'status': 400,
+                'message': 'Content-Type not supported!'
+            }
 
     # submit question
 
@@ -66,7 +101,7 @@ def create_app():
     #     db.session.commit()
     #     Flask.flash('success!', category='success')
     #     return {"members": ["Member1", "Member2", "Member3"]}
-    
+
     return app
 
 

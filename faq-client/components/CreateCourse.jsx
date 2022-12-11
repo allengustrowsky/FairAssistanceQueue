@@ -27,9 +27,19 @@ const CreateCourse = (props) => {
         navigate('/')
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         // submit request to create course
-        navigate(`/view/${12}`)
+        const raw = await fetch('http://127.0.0.1:5000/course/create', {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify(formData)
+        })
+        const jsonData = await raw.json()
+
+        navigate(`/view`, {state: jsonData})
     }
    
     return (

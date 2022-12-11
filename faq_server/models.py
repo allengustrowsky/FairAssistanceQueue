@@ -18,6 +18,26 @@ class Course(db.Model):
      # stores questions in table in an an array-like structure so that they can be referenced easily
     questions = db.relationship('Question')
 
+    @staticmethod
+    def is_admin(key):
+        admin_record = Course.query.filter_by(admin_key=key).first()
+        return False if admin_record is None else True
+
+    @staticmethod
+    def is_TA(key):
+        TA_record = Course.query.filter_by(ta_key=key).first()
+        return False if TA_record is None else True
+
+    @staticmethod
+    def is_admin_key_unique(key):
+        admin_key = Course.query.filter_by(admin_key=key).first()
+        return True if admin_key is None else False
+
+    @staticmethod
+    def is_ta_key_unique(key):
+        TA_key = Course.query.filter_by(ta_key=key).first()
+        return True if TA_key is None else False
+
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
@@ -35,4 +55,7 @@ class Owner(db.Model):
     master_key = db.Column(db.String(36), nullable=False) # uuid
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
 
-
+    @staticmethod
+    def is_owner(key):
+        owner_key = Owner.query.filter_by(master_key=key).first()
+        return False if owner_key is None else True
