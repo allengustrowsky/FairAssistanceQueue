@@ -30,13 +30,17 @@ class Course(db.Model):
 
     @staticmethod
     def is_admin_key_unique(key):
+        # ensure given key does not match admin or TA key
         admin_key = Course.query.filter_by(admin_key=key).first()
-        return True if admin_key is None else False
+        TA_key = Course.query.filter_by(ta_key=key).first()
+        return True if (admin_key is None and TA_key is None) else False
 
     @staticmethod
     def is_ta_key_unique(key):
+        # ensure given key does not match admin or TA key
         TA_key = Course.query.filter_by(ta_key=key).first()
-        return True if TA_key is None else False
+        admin_key = Course.query.filter_by(admin_key=key).first()
+        return True if (TA_key is None and admin_key is None) else False
 
     @staticmethod
     def is_code_unique(code):
