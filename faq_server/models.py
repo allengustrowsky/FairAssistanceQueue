@@ -24,8 +24,18 @@ class Course(db.Model):
         return False if admin_record is None else True
 
     @staticmethod
+    def is_admin_for_course(key, code):
+        admin_record = Course.query.filter_by(admin_key=key, course_code=code).first()
+        return False if admin_record is None else True
+
+    @staticmethod
     def is_TA(key):
         TA_record = Course.query.filter_by(ta_key=key).first()
+        return False if TA_record is None else True
+
+    @staticmethod
+    def is_TA_for_course(key, code):
+        TA_record = Course.query.filter_by(ta_key=key, course_code=code).first()
         return False if TA_record is None else True
 
     @staticmethod
