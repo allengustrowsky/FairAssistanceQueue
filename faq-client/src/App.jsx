@@ -16,8 +16,9 @@ function App() {
   const navigate = useNavigate()
 
 
-//   useEffect(() => {
+// useEffect(() => {
 //     const getData = async () => {
+//         console.log('useEffect()')
 //         const raw = await fetch('http://127.0.0.1:5000/members')
 //         console.log(raw)
 //         const jsonData = await raw.json()
@@ -49,11 +50,20 @@ const handleCreate = () => {
     navigate(`/create`)
 }
 
+// DELETE ME ONLY A TEST
+const click = async () => {
+    const raw = await fetch('http://127.0.0.1:5000/course/index')
+    const jsonData = await raw.json()
+    console.log(`response; ${jsonData.message}`)
+}
+
   return (
     <div className="app">
         <img className='logo' src={logo} alt='FAQ logo'/>
         <div className="formContainer">
             <Typography variant='h2' component='h1'>Fair Assistance Queue</Typography>
+            {/* DELETE BELOW BUTTON - ONLY A TEST */}
+            <Button onClick={click}>Click me!</Button>
             <div className="formInputs">
                 <Paper 
                     elevation={4} 
