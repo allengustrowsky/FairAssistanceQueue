@@ -77,31 +77,38 @@ def create_app():
             jsonData = request.json
             # ensure user is admin
             if Course.is_admin(jsonData['adminKey']) or Owner.is_owner(jsonData['adminKey']):
-                # create keys
-                admin_key = str(uuid.uuid4())
-                TA_key = str(uuid.uuid4())
-                # ensure keys are unique
-                while not (Course.is_admin_key_unique(admin_key) and Course.is_ta_key_unique(TA_key)):
+                # if course code is unique
+                if Course.is_code_unique(jsonData['courseCode']): # if course code is unique
+                    # create keys
                     admin_key = str(uuid.uuid4())
                     TA_key = str(uuid.uuid4())
-                # create new course with params
-                course = Course( 
-                            name=jsonData['name'], 
-                            admin_key=admin_key,
-                            ta_key=TA_key,
-                            course_code=jsonData['courseCode'], 
-                            description=jsonData['description'],
-                            school=jsonData['school'], 
-                        )
-                db.session.add(course)
-                db.session.commit()
-                return {
-                    'message': 'Course successfully created!',
-                    'adminKey': admin_key,
-                    'taKey': TA_key,
-                    'courseCode': jsonData['courseCode'],
-                    'status': 201,
-                }
+                    # ensure keys are unique
+                    while not (Course.is_admin_key_unique(admin_key) and Course.is_ta_key_unique(TA_key)):
+                        admin_key = str(uuid.uuid4())
+                        TA_key = str(uuid.uuid4())
+                    # create new course with params
+                    course = Course( 
+                                name=jsonData['name'], 
+                                admin_key=admin_key,
+                                ta_key=TA_key,
+                                course_code=jsonData['courseCode'], 
+                                description=jsonData['description'],
+                                school=jsonData['school'], 
+                            )
+                    db.session.add(course)
+                    db.session.commit()
+                    return {
+                        'message': 'Course successfully created!',
+                        'adminKey': admin_key,
+                        'taKey': TA_key,
+                        'courseCode': jsonData['courseCode'],
+                        'status': 201,
+                    }
+                else: # course code is not unique
+                    return {
+                        'message': 'Course code already taken!',
+                        'statue': 400
+                    }
             else: # not authorized
                 return {
                     'message': 'Not authorized. Please provide a valid admin key.',

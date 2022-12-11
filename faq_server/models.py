@@ -39,6 +39,11 @@ class Course(db.Model):
         return True if TA_key is None else False
 
     @staticmethod
+    def is_code_unique(code):
+        course = Course.query.filter_by(course_code=code).first()
+        return True if course is None else False
+
+    @staticmethod
     def is_valid_course(code):
         course = Course.query.filter_by(course_code=code).first()
         return False if course is None else True
