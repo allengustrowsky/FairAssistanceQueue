@@ -40,7 +40,7 @@ const handleChange = (event) => {
     })
 }
 
-const handleClick = async () => {
+const handleSubmit = async () => {
     // make verification request
     const raw = await fetch('http://127.0.0.1:5000/course/sign-in', {
         headers: {
@@ -51,19 +51,19 @@ const handleClick = async () => {
         body: JSON.stringify(formData)
     })
     const jsonData = await raw.json()
-    // console.log(jsonData)
+    console.log(jsonData)
     
     // handle invalid course code
     if (jsonData.status == 400) {
         setError(jsonData.message)
     } else { // successful request
-        navigate(`/index/${jsonData.courseCode}`)
+        navigate(`/index/${jsonData.courseCode}`, {state: {
+            courseCode: jsonData.courseCode,
+            courseName: jsonData.courseName,
+            isAdmin: jsonData.isAdmin,
+            isTA: jsonData.isTA
+        }})
     }
-
-    // if successful and added admin key, set global admin key state
-    let isAdmin = true
-    let isTa = true
-    
 }
 
 const handleCreate = () => {
@@ -108,7 +108,7 @@ const handleCreate = () => {
                     variant='contained' 
                     size='large' 
                     // sx={{marginTop: '3rem'}}
-                    onClick={handleClick}
+                    onClick={handleSubmit}
                 >
                     Join Room
                 </Button> 

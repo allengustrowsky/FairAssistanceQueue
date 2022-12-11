@@ -1,10 +1,11 @@
-import { Paper, Box, Typography } from '@mui/material'
+import { Paper, Box, Typography, Divider } from '@mui/material'
 import { useState } from 'react'
 import HourglassBottomTwoToneIcon from '@mui/icons-material/HourglassBottomTwoTone'
 import MarkChatReadTwoToneIcon from '@mui/icons-material/MarkChatReadTwoTone'
 import QuestionAnswerTwoToneIcon from '@mui/icons-material/QuestionAnswerTwoTone'
 
 const CourseData = (props) => {
+    const { courseCode } = props
     const [placeInLine, setPlaceInLine] = useState(3)
     const [questionsInQueue, setQuestionsInQueue] = useState(0)
     const [questionsAnswered, setQuestionsAnswered] = useState(0)
@@ -25,6 +26,12 @@ const CourseData = (props) => {
                     alignItems: 'left',                    
                 }}
             >
+                <Typography variant='h5' component='h2'>
+                    Course code: 
+                    <Typography variant='h6' component='p' color='text.secondary'>{courseCode}</Typography>
+                    <Divider />
+                </Typography>
+
                 {/* your spot (first question) */}
                 {(placeInLine !== 0) && 
                     <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
