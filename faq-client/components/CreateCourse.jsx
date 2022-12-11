@@ -128,7 +128,7 @@ const CreateCourse = (props) => {
                     </Typography>
                     }
 
-                    {(formData.name !== '' && formData.courseCode !== '' && formData.description !== '' && formData.school !== '' && formData.adminKey !== '') && 
+                    {(formData.name.trim() !== '' && formData.courseCode.trim() !== '' && formData.description.trim() !== '' && formData.school.trim() !== '' && formData.adminKey.trim() !== '') && 
                     
                     <Button 
                         variant='contained' 

@@ -103,7 +103,7 @@ const handleCreate = () => {
                     {error}
                 </Typography>
                 }
-                {(formData.courseCode !== '') &&
+                {(formData.courseCode.trim() !== '') &&
                 <Button 
                     variant='contained' 
                     size='large' 
