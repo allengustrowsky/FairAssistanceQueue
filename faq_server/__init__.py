@@ -49,8 +49,8 @@ def create_app():
                     'message': 'Successfully signed into course.',
                     'courseName': course.name,
                     'courseCode': course.course_code,
-                    'isAdmin': Course.is_admin_for_course(jsonData['adminKey'], jsonData['courseCode']),
-                    'isTA': Course.is_TA_for_course(jsonData['adminKey'], jsonData['courseCode']),
+                    'isAdmin': Course.is_admin_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
+                    'isTA': Course.is_TA_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
                     'status': 200,
                 }
             else:
