@@ -2,6 +2,7 @@ from flask import Flask
 from flask_cors import CORS  # comment this on deployment
 from flask_sqlalchemy import SQLAlchemy
 from os import path
+import uuid
 # import course
 
 # from models import Course, Question
@@ -14,7 +15,7 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///faq_db.db'
     db.init_app(app)  # connect flask app with database
 
-    from .models import Course # need models to load/run before calling create_all()
+    from .models import Course, Question, Owner # need models to load/run before calling create_all()
    
     
     # if db doesn't exist, create it
@@ -29,11 +30,14 @@ def create_app():
     # register routes
     # from course import course
     # from . import 
+    testuuid = print(f'uuid: {str(uuid.uuid4())}')
 
 
+    # /members: FOR TESTING ONLY - DELETE 
     @app.route("/members")
     def members():
-        new_course = Course(name='Members of the app', admin_key='4', ta_key='4')
+        new_course = Course(name='Members of the app', admin_key='5', ta_key='5')
+        # new_course = Owner(master_key = str(uuid.uuid4()))
         db.session.add(new_course)
         db.session.commit()
         # flash('success!', category='success')
@@ -42,6 +46,17 @@ def create_app():
     @app.route("/course/index")
     def index():
         return {"message": "success!!"}
+    # note:always check api key(s)
+
+    # sign into course
+
+    # create course
+
+    # submit question
+
+    # mark as answered
+
+    # questions answered in this course
 
     # from models import Course
     # @app.route("/members")

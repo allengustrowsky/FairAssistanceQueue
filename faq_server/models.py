@@ -30,4 +30,9 @@ class Question(db.Model):
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
     created_at = db.Column(db.DateTime(timezone=True), default=func.now())
 
+class Owner(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    master_key = db.Column(db.String(36), nullable=False) # uuid
+    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+
 

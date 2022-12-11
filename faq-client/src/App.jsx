@@ -55,6 +55,10 @@ const click = async () => {
     const raw = await fetch('http://127.0.0.1:5000/course/index')
     const jsonData = await raw.json()
     console.log(`response; ${jsonData.message}`)
+    const raw2 = await fetch('http://127.0.0.1:5000/members')
+    // console.log(raw2)
+    const jsonData2 = await raw2.json()
+    console.log(jsonData)
 }
 
   return (
