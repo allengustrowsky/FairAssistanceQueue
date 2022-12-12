@@ -3,6 +3,8 @@ from flask_cors import CORS  # comment this on deployment
 from flask_sqlalchemy import SQLAlchemy
 from os import path
 import uuid
+import json
+from datetime import datetime
 # import course
 
 # from models import Course, Question
@@ -49,6 +51,7 @@ def create_app():
                     'message': 'Successfully signed into course.',
                     'courseName': course.name,
                     'courseCode': course.course_code,
+                    'courseId': course.id,
                     'isAdmin': Course.is_admin_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
                     'isTA': Course.is_TA_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
                     'status': 200,
@@ -125,7 +128,7 @@ def create_app():
     def ask_question():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             jsonData = request.json
-            question = Question(title=jsonData['title'], content=jsonData['content'], submitted_by=jsonData['submittedBy'])
+            question = Question(title=jsonData['title'], content=jsonData['content'], submitted_by=jsonData['submittedBy'], course_id=jsonData['courseId'])
             db.session.add(question)
             db.session.commit()
             return {
@@ -138,10 +141,42 @@ def create_app():
                 'status': 400
             }
 
+    # questions answered in this course
+    @app.route('/course/questions', methods=['GET'])
+    def get_questions():
+        course_code = request.args.get('courseCode')
+        course = Course.query.filter_by(course_code=course_code).first()
+
+        if course: # only proceed if course code is valid
+            questions = Question.query.filter_by(course_id=course.id).all()
+            
+            data = [] # response data
+            for idx, question in enumerate(questions):
+                data.append({ # populate data dictionary
+                    'title': question.title,
+                    'content': question.content,
+                    'upVotes': question.up_votes,
+                    'submittedBy': question.submitted_by,
+                    'isAnswered': question.is_answered,
+                    'isImportantQuestion': question.is_important_question,
+                    'createdAt': str(question.created_at.strftime('%I:%M %p, %d %b %Y'))
+                })
+            
+            return json.dumps({
+                'message': 'Request successful. Sending data.',
+                'data': data,
+                'status': 200
+            })
+        else:
+            return {
+                'message': 'Invalid course code!',
+                'data': 'None',
+                'status': 400
+            }
+
 
     # mark as answered
 
-    # questions answered in this course
 
     # from models import Course
     # @app.route("/members")

@@ -60,6 +60,7 @@ const handleSubmit = async () => {
         navigate(`/index/${jsonData.courseCode}`, {state: {
             courseCode: jsonData.courseCode,
             courseName: jsonData.courseName,
+            courseId: jsonData.courseId,
             isAdmin: jsonData.isAdmin,
             isTA: jsonData.isTA
         }})

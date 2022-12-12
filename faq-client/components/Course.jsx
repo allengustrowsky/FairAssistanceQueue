@@ -4,16 +4,34 @@ import Question from './Question'
 import QuestionForm from './QuestionForm'
 import CourseData from './CourseData'
 import logo from '../src/assets/FAQ_logo.svg'
+import { useEffect, useState } from 'react'
 
 const Course = (props) => {
     const navigate = useNavigate()
-    const { state } = useLocation()
-    const isAdmin = false
-    const isTa = false
+    let { state } = useLocation()
+    const [questionData, setQuestionData] = useState([])
 
     const handleClick = () => {
         navigate('/')
     }
+
+    const getData = async () => {
+        const raw = await fetch('http://127.0.0.1:5000/course/questions?courseCode=' + state.courseCode)
+        const jsonData = await raw.json()
+        console.log(jsonData)
+        setQuestionData(jsonData.data)
+    }
+
+    useEffect(() => {
+        // ensure state exists since getData() depends on it
+        if (state) {
+            getData()
+
+            // set interval inside condition
+
+            // delete interval inside condtion
+        }
+    }, [])
 
 
     return (
@@ -31,7 +49,8 @@ const Course = (props) => {
                 </Button>
             </div>
             <div className="mainCourseContent">
-                <QuestionForm />
+                {/* definitely need to check this state - used to pass id to link questions and answers */}
+                <QuestionForm state={state}/>
                 <div className="queueContainer">
                     <Divider variant='middle' sx={{marginTop: '0.8rem'}}/>
                     <Typography 
@@ -43,15 +62,12 @@ const Course = (props) => {
                         Up Next...
                     </Typography>
                         <div className="questionsContainer">
-                            {[... new Array(20)].map((question, index) => {
-                                return <Question key={index} isAdmin={false} isTa={true}/>
+                            {questionData.map((question, index) => {
+                                return <Question key={index} data={question} isAdmin={state.isAdmin} isTa={state.isTA}/>
                             })}                      
                         </div>
                 </div>
-                <CourseData courseCode={state.courseCode}/>
-                {/* <div className="metaContainer">
-
-                </div> */}
+                <CourseData courseCode={state ? state.courseCode : ''}/>
             </div>
         </div>
     )

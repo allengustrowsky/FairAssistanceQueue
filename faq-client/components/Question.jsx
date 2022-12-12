@@ -1,4 +1,4 @@
-import { Typography, Paper, Button } from '@mui/material'
+import { Typography, Paper, Button, Divider } from '@mui/material'
 import { useState } from 'react'
 import DeleteTwoToneIcon from '@mui/icons-material/DeleteTwoTone';
 import CheckCircleOutlineRoundedIcon from '@mui/icons-material/CheckCircleOutlineRounded';
@@ -6,7 +6,8 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 
 
 const Question = (props) => {
-    const { isAdmin, isTa } = props
+    const { data, isAdmin, isTa } = props
+    // data keys -> 'title', 'content', 'upVotes', 'submittedBy', 'isAnswered', 'isImportanQuestion', 'createdAt'
     const [isAnswered, setIsAnswered] = useState(false)
 
     const handleAnswer = () => {
@@ -20,21 +21,27 @@ const Question = (props) => {
     return (
         <div className="questionContainer">
             <Paper elevation={4}>
-                <Typography variant='h5' component='h3'>Question!</Typography>
-                <Typography variant='p' compontent='p' color='text.secondary'>Wherefore I have come here with a mystery, so shall I depart with wisdom at the power of my professor</Typography>
-                {(isAdmin || isTa) &&
+                <Typography variant='h5' component='h3'>{data.title}</Typography>
+                <Typography variant='p' compontent='p' color='text.secondary'>{data.content}</Typography>
                 <div className='questionActions'>
-                    <Button color='error'>
-                        <DeleteTwoToneIcon onClick={handleDelete}></DeleteTwoToneIcon>
-                    </Button>
-                    <Button>
-                        {!isAnswered ? 
-                            <CheckCircleOutlineRoundedIcon onClick={handleAnswer}></CheckCircleOutlineRoundedIcon> : 
-                            <CheckCircleRoundedIcon onClick={handleAnswer}></CheckCircleRoundedIcon>
-                        }
-                    </Button>
+                    {(isAdmin || isTa) &&
+                        <Button color='error'>
+                            <DeleteTwoToneIcon onClick={handleDelete}></DeleteTwoToneIcon>
+                        </Button>
+                    }
+                    <div className="questionAbout">
+                        <Typography variant='subtitle2' component='p' sx={{padding: '0.6rem 1rem'}}>{data.submittedBy}</Typography>
+                        <Typography variant='caption' component='p' sx={{padding: '0.6rem 1rem'}}>{data.createdAt}</Typography>
+                    </div>
+                    {(isAdmin || isTa) && 
+                        <Button>
+                            {!isAnswered ? 
+                                <CheckCircleOutlineRoundedIcon onClick={handleAnswer}></CheckCircleOutlineRoundedIcon> : 
+                                <CheckCircleRoundedIcon onClick={handleAnswer}>20 21 sdfs</CheckCircleRoundedIcon>
+                            }
+                        </Button>
+                    }
                 </div>
-                }
             </Paper>
             
         </div>

@@ -111,6 +111,14 @@
     align-items: center;
 }
 
+.questionAbout {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
 .metaContainer {
     width: 400px;
     height: 600px;

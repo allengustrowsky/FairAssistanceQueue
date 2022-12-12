@@ -2,6 +2,7 @@ import { Typography, Paper, TextField, Button } from '@mui/material'
 import { useState } from 'react'
 
 const QuestionForm = (props) => {
+    const { state } = props
     const [formData, setFormData] = useState({
         title: '',
         content: '',
@@ -27,10 +28,13 @@ const QuestionForm = (props) => {
                 'Accept': 'application/json'
             },
             method: 'POST',
-            body: JSON.stringify(formData)
+            body: JSON.stringify({
+                ...formData,
+                courseId: state.courseId
+            })
         })
         const jsonData = await raw.json()
-        
+
         if (jsonData.status === 201) {
             setSuccessMsg('Question submitted!')
         }
