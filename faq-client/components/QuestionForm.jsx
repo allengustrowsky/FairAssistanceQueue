@@ -21,6 +21,14 @@ const QuestionForm = (props) => {
         })
     }
 
+    const clearFormData = () => {
+        setFormData({
+            title: '',
+            content: '',
+            submittedBy: '',
+        })
+    }
+
     const handleSubmit = async () => {
         const raw = await fetch('http://127.0.0.1:5000/course/question/submit', {
             headers: {
@@ -39,6 +47,7 @@ const QuestionForm = (props) => {
             // record userId for use in 'place in line' feature
             // setUserIds(prevIds => [...prevIds, jsonData.id])
             setSuccessMsg('Question submitted!')
+            clearFormData()
         }
         return
     }
