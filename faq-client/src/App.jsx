@@ -62,7 +62,8 @@ const handleSubmit = async () => {
             courseName: jsonData.courseName,
             courseId: jsonData.courseId,
             isAdmin: jsonData.isAdmin,
-            isTA: jsonData.isTA
+            isTA: jsonData.isTA,
+            isOwner: jsonData.isOwner
         }})
     }
 }

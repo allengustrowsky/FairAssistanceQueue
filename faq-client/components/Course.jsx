@@ -91,7 +91,7 @@ const Course = (props) => {
                     </Typography>
                         <div className="questionsContainer">
                             {questionData.map((question, index) => { 
-                                return <Question key={index} data={question} isAdmin={state.isAdmin} isTa={state.isTA}/>
+                                return <Question key={index} data={question} isAdmin={state.isAdmin} isTa={state.isTA} isOwner={state.isOwner}/>
                             })}                      
                         </div>
                 </div>

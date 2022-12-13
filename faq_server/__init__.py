@@ -21,8 +21,10 @@ def create_app():
     # need models to load/run before calling create_all()
     from .models import Course, Question, Owner
 
+    DB_PATH = 'instance/faq_db.db'
+
     # if db doesn't exist, create it
-    if not path.exists('instance/faq_db.db'):
+    if not path.exists(DB_PATH):
         with app.app_context():
             db.create_all()
         print('Database successfully created')
@@ -54,6 +56,7 @@ def create_app():
                     'courseId': course.id,
                     'isAdmin': Course.is_admin_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
                     'isTA': Course.is_TA_for_course(jsonData['adminKey'], jsonData['courseCode']) or Owner.is_owner(jsonData['adminKey']),
+                    'isOwner': Owner.is_owner(jsonData['adminKey']),
                     'status': 200,
                 }
             else:
@@ -178,6 +181,36 @@ def create_app():
 
 
     # mark as answered
+    @app.route('/course/question/mark-as-answered', methods=['POST'])
+    def mark_as_answered():
+        if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
+            data = request.json
+            if data['isAdmin'] or data['isTa'] or data['isOwner']:
+                question = Question.query.get(data['id'])
+
+                # increment answer count on this question's course
+                course = Course.query.get(question.course_id)
+                course.questions_answered += 1
+                
+                # delete question since it is no longer needed
+                db.session.delete(question)
+                db.session.commit()
+                return {
+                    'message': 'Successfully marked question as answered.',
+                    'id': data['id'],
+                    'status': 200
+                }
+            else:
+                return {
+                    'message': 'You are not authorized to perform this action',
+                    'status': 403
+                }
+        else: # invalid Content-Type
+            return {
+                'message': 'Content-Type not supported!',
+                'status': 400
+            }
+
 
 
     # from models import Course

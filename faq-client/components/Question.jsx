@@ -6,12 +6,25 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 
 
 const Question = (props) => {
-    const { data, isAdmin, isTa } = props
+    const { data, isAdmin, isTa, isOwner } = props
     // data keys -> 'title', 'content', 'upVotes', 'submittedBy', 'isAnswered', 'isImportanQuestion', 'createdAt'
     const [isAnswered, setIsAnswered] = useState(false)
 
-    const handleAnswer = () => {
-        setIsAnswered(prevIsAnswer => !prevIsAnswer)
+    const handleAnswer = async () => {
+        const raw = await fetch('http://127.0.0.1:5000/course/question/mark-as-answered', {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: 'POST',
+            body: JSON.stringify({
+                id: data.id,
+                isAdmin: isAdmin,
+                isTa: isTa,
+                isOwner: isOwner
+            })
+        })
+        // setIsAnswered(prevIsAnswer => !prevIsAnswer)
     }
 
     const handleDelete = () => {
