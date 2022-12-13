@@ -10,16 +10,42 @@ const Course = (props) => {
     const navigate = useNavigate()
     let { state } = useLocation()
     const [questionData, setQuestionData] = useState([])
+    const [placeInLine, setPlaceInLine] = useState(0)
+    // const [userIds, setUserIds] = useState([])
+    
 
     const handleClick = () => {
         navigate('/')
     }
+
+    // const getPlaceInLine = () => {
+    //     console.log(`getPlaceInLine, userIds.length: ${userIds.length}; userIds:`)
+    //     console.log(userIds)
+    //     if (userIds.length > 0) {
+    //         const target = userIds[0]
+            
+    //         // questionData.forEach(question => {
+    //         for (let question of questionData) {
+    //             console.log('in for looop')
+    //             if (question.id === target) {
+    //                 console.log('found a match!')
+    //                 console.log(questionData.indexOf(question))
+    //                 return questionData.indexOf(question)
+    //             }
+    //         // })
+    //         }
+    //     } 
+    // }
 
     const getData = async () => {
         const raw = await fetch('http://127.0.0.1:5000/course/questions?courseCode=' + state.courseCode)
         const jsonData = await raw.json()
         console.log(jsonData)
         setQuestionData(jsonData.data)
+
+        // set position in line for course data component to use
+        // setPlaceInLine(getPlaceInLine())
+
     }
 
     useEffect(() => {
@@ -28,8 +54,10 @@ const Course = (props) => {
             getData()
 
             // set interval inside condition
+            const intervalId = setInterval(getData, 2000)
 
             // delete interval inside condtion
+            return () => clearInterval(intervalId)
         }
     }, [])
 
@@ -62,12 +90,12 @@ const Course = (props) => {
                         Up Next...
                     </Typography>
                         <div className="questionsContainer">
-                            {questionData.map((question, index) => {
+                            {questionData.map((question, index) => { 
                                 return <Question key={index} data={question} isAdmin={state.isAdmin} isTa={state.isTA}/>
                             })}                      
                         </div>
                 </div>
-                <CourseData courseCode={state ? state.courseCode : ''}/>
+                <CourseData courseCode={state ? state.courseCode : ''} count={questionData.length}/>
             </div>
         </div>
     )

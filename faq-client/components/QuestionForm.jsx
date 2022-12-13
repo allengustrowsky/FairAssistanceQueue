@@ -2,7 +2,7 @@ import { Typography, Paper, TextField, Button } from '@mui/material'
 import { useState } from 'react'
 
 const QuestionForm = (props) => {
-    const { state } = props
+    const { state, setUserIds } = props
     const [formData, setFormData] = useState({
         title: '',
         content: '',
@@ -36,6 +36,8 @@ const QuestionForm = (props) => {
         const jsonData = await raw.json()
 
         if (jsonData.status === 201) {
+            // record userId for use in 'place in line' feature
+            // setUserIds(prevIds => [...prevIds, jsonData.id])
             setSuccessMsg('Question submitted!')
         }
         return

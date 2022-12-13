@@ -133,6 +133,7 @@ def create_app():
             db.session.commit()
             return {
                 'message': 'Question successfully submitted.',
+                'id': question.id,
                 'status': 201
             }
         else: # invalid Content-Type
@@ -145,7 +146,7 @@ def create_app():
     @app.route('/course/questions', methods=['GET'])
     def get_questions():
         course_code = request.args.get('courseCode')
-        course = Course.query.filter_by(course_code=course_code).first()
+        course = Course.query.filter_by(course_code=course_code).order_by(Course.created_at).first()
 
         if course: # only proceed if course code is valid
             questions = Question.query.filter_by(course_id=course.id).all()
@@ -153,6 +154,7 @@ def create_app():
             data = [] # response data
             for idx, question in enumerate(questions):
                 data.append({ # populate data dictionary
+                    'id': question.id,
                     'title': question.title,
                     'content': question.content,
                     'upVotes': question.up_votes,
