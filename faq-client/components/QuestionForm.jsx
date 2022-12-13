@@ -64,6 +64,7 @@ const QuestionForm = (props) => {
                         value={formData.title}
                         onChange={handleChange}
                         label='Title'
+                        inputProps={{maxLength: 64}}
                     />
                     <TextField
                         id='content'
@@ -72,12 +73,14 @@ const QuestionForm = (props) => {
                         multiline
                         rows={4}
                         label='Ask with all your might...'
+                        inputProps={{maxLength: 64}}
                     />
                     <TextField
                         id='submittedBy'
                         value={formData.submittedBy}
                         onChange={handleChange}
                         label='Name'
+                        inputProps={{maxLength: 25}}
                     />
                     {successMsg !== '' && 
                         <Typography variant='subtitle.1' component='p' sx={{color: 'rgb(69, 123, 59)'}}>{successMsg}</Typography>
