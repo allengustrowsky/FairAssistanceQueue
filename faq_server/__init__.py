@@ -149,10 +149,10 @@ def create_app():
     @app.route('/course/questions', methods=['GET'])
     def get_questions():
         course_code = request.args.get('courseCode')
-        course = Course.query.filter_by(course_code=course_code).order_by(Course.created_at).first()
+        course = Course.query.filter_by(course_code=course_code).first()
 
         if course: # only proceed if course code is valid
-            questions = Question.query.filter_by(course_id=course.id).all()
+            questions = Question.query.filter_by(course_id=course.id).order_by(Question.created_at).all()
             
             data = [] # response data
             for idx, question in enumerate(questions):
