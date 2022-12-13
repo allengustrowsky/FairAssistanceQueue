@@ -1,9 +1,5 @@
-# from faq_server import db
-from sqlalchemy.sql import func
-# from flask_sqlalchemy import SQLAlchemy
 from . import db
-
-# db = SQLAlchemy()
+from datetime import datetime
 
 class Course(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -14,7 +10,7 @@ class Course(db.Model):
     description = db.Column(db.String(512))
     school = db.Column(db.String(128))
     questions_answered = db.Column(db.Integer, default=0)
-    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
      # stores questions in table in an an array-like structure so that they can be referenced easily
     questions = db.relationship('Question')
 
@@ -72,12 +68,12 @@ class Question(db.Model):
     is_important_question = db.Column(db.Boolean, default=False)
     path = db.Column(db.String) # file uploading
     course_id = db.Column(db.Integer, db.ForeignKey('course.id'))
-    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
 
 class Owner(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     master_key = db.Column(db.String(36), nullable=False) # uuid
-    created_at = db.Column(db.DateTime(timezone=True), default=func.now())
+    created_at = db.Column(db.DateTime(timezone=True), default=datetime.now())
 
     @staticmethod
     def is_owner(key):
