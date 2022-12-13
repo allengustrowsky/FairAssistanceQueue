@@ -68,11 +68,6 @@ def create_app():
                 'status': 400
             }
 
-    # gets course info (for index page)
-    @app.route('/course/index')
-    def index():
-        return {'message': 'success!!'}
-
     # create course
     @app.route('/course/create', methods=['POST'])
     def create_course():
