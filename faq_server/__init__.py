@@ -5,9 +5,6 @@ from os import path
 import uuid
 import json
 from datetime import datetime
-# import course
-
-# from models import Course, Question
 
 db = SQLAlchemy()
 
@@ -268,22 +265,5 @@ def create_app():
                 'status': 400
             }
 
-
-
-
-    # from models import Course
-    # @app.route("/members")
-    # def members():
-    #     new_course = Course(name='Members of the app', admin_key='1234ghjk1234ghjk', ta_key='sadfjklhq298')
-    #     db.session.add(new_course)
-    #     db.session.commit()
-    #     Flask.flash('success!', category='success')
-    #     return {"members": ["Member1", "Member2", "Member3"]}
-
     return app
 
-
-# if __name__ == "__main__":
-    # app.run(debug=True)
-
-    # have to move routes to different file to prevent circular imports

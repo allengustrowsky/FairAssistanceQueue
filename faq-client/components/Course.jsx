@@ -54,7 +54,7 @@ const Course = (props) => {
             getData()
 
             // set interval inside condition
-            const intervalId = setInterval(getData, 2000)
+            const intervalId = setInterval(getData, 100)
 
             // delete interval inside condtion
             return () => clearInterval(intervalId)
