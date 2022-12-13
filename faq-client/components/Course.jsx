@@ -68,7 +68,11 @@ const Course = (props) => {
                 <div className='logoCourse' onClick={handleClick}>
                     <img className='logoCourse' src={logo} alt='logo'/>
                 </div>
-                <Typography variant='h2' component='h1'>{state ? state.courseName : 'Invalid access!'}</Typography>
+                {/* state checks are for incorrect access through means such as manual address entry. */}
+                {state ? <Typography variant='h2' component='h1'>{state.courseName}</Typography> :
+                        <Typography variant='h4' component='h1'>Oops! An error occurred. Try re-entering the course code.</Typography>   
+                }
+                
                 <Button 
                     onClick={handleClick}
                     size='large'
@@ -77,25 +81,27 @@ const Course = (props) => {
                 </Button>
             </div>
             <div className="mainCourseContent">
-                {/* definitely need to check this state - used to pass id to link questions and answers */}
-                <QuestionForm state={state}/>
+                {state && <QuestionForm state={state}/>}
+                
                 <div className="queueContainer">
                     <Divider variant='middle' sx={{marginTop: '0.8rem'}}/>
-                    <Typography 
-                        variant='h4' 
-                        component='h2'
-                        color='text.secondary'
-                        sx={{margin: '10px 0'}}    
-                    >
-                        Up Next...
-                    </Typography>
+                    {state &&
+                        <Typography 
+                            variant='h4' 
+                            component='h2'
+                            color='text.secondary'
+                            sx={{margin: '10px 0'}}    
+                        >
+                            Up Next...
+                        </Typography>
+                    }
                         <div className="questionsContainer">
                             {questionData.map((question, index) => { 
                                 return <Question key={index} data={question} isAdmin={state.isAdmin} isTa={state.isTA} isOwner={state.isOwner}/>
                             })}                      
                         </div>
                 </div>
-                <CourseData courseCode={state ? state.courseCode : ''} count={questionData.length} questionsAnswered={questionsAnswered}/>
+                {state && <CourseData courseCode={state ? state.courseCode : ''} count={questionData.length} questionsAnswered={questionsAnswered}/>}
             </div>
         </div>
     )
