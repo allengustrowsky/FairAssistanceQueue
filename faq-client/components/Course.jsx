@@ -10,6 +10,7 @@ const Course = (props) => {
     const navigate = useNavigate()
     let { state } = useLocation()
     const [questionData, setQuestionData] = useState([])
+    const [questionsAnswered, setQuestionsAnswered] = useState(0)
     const [placeInLine, setPlaceInLine] = useState(0)
     // const [userIds, setUserIds] = useState([])
     
@@ -40,12 +41,11 @@ const Course = (props) => {
     const getData = async () => {
         const raw = await fetch('http://127.0.0.1:5000/course/questions?courseCode=' + state.courseCode)
         const jsonData = await raw.json()
-        console.log(jsonData)
         setQuestionData(jsonData.data)
 
-        // set position in line for course data component to use
-        // setPlaceInLine(getPlaceInLine())
-
+        const rawCount = await fetch('http://127.0.0.1:5000/course/questions/num-answered?courseCode=' + state.courseCode)
+        const jsonCountData = await rawCount.json()
+        setQuestionsAnswered(jsonCountData.count)
     }
 
     useEffect(() => {
@@ -95,7 +95,7 @@ const Course = (props) => {
                             })}                      
                         </div>
                 </div>
-                <CourseData courseCode={state ? state.courseCode : ''} count={questionData.length}/>
+                <CourseData courseCode={state ? state.courseCode : ''} count={questionData.length} questionsAnswered={questionsAnswered}/>
             </div>
         </div>
     )

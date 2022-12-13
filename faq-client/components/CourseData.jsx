@@ -5,10 +5,7 @@ import MarkChatReadTwoToneIcon from '@mui/icons-material/MarkChatReadTwoTone'
 import QuestionAnswerTwoToneIcon from '@mui/icons-material/QuestionAnswerTwoTone'
 
 const CourseData = (props) => {
-    const { courseCode, count, placeInLine } = props
-    // const [placeInLine, setPlaceInLine] = useState(0)
-    // const [questionsInQueue, setQuestionsInQueue] = useState(0)
-    const [questionsAnswered, setQuestionsAnswered] = useState(0)
+    const { courseCode, count, placeInLine, questionsAnswered } = props
     
     const fontSize = '5rem'
     return (
@@ -70,7 +67,7 @@ const CourseData = (props) => {
                 <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center'}}>
                     <MarkChatReadTwoToneIcon color='success' sx={{fontSize: fontSize}}/>
                     <Typography variant='h4' component='p'>
-                        {'tljk'}
+                        {questionsAnswered}
                         <Typography 
                             variant='h5' 
                             component='p'

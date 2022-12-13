@@ -210,6 +210,31 @@ def create_app():
                 'status': 400
             }
 
+    # get number of answered questions
+    @app.route('/course/questions/num-answered', methods=['GET'])
+    def get_question_count():
+        params = dict(request.args)
+        if 'courseCode' in params: # ensure courseCode is in params
+            course_code = params['courseCode']
+            course = Course.query.filter_by(course_code=course_code).first()
+            
+            if course: # only proceed if course code is valid
+                return {
+                    'count': course.questions_answered,
+                    'status': 200
+                }
+            else:
+                return {
+                    'message': 'Invalid course code!',
+                    'data': 'None',
+                    'status': 400
+                }
+        else: # user did not send course code
+            return {
+                'message': 'Missing parameter: courseCode',
+                'status': 400
+            }
+                
     # delete a question
     @app.route('/course/question/delete', methods=['DELETE'])
     def delete_question():
