@@ -71,7 +71,7 @@ def create_app():
                 'status': 400
             }
 
-    # gete course info (for index page)
+    # gets course info (for index page)
     @app.route('/course/index')
     def index():
         return {'message': 'success!!'}
@@ -179,7 +179,6 @@ def create_app():
                 'status': 400
             }
 
-
     # mark as answered
     @app.route('/course/question/mark-as-answered', methods=['POST'])
     def mark_as_answered():
@@ -200,7 +199,7 @@ def create_app():
                     'id': data['id'],
                     'status': 200
                 }
-            else:
+            else: # not authorized
                 return {
                     'message': 'You are not authorized to perform this action',
                     'status': 403
@@ -210,6 +209,40 @@ def create_app():
                 'message': 'Content-Type not supported!',
                 'status': 400
             }
+
+    # delete a question
+    @app.route('/course/question/delete', methods=['DELETE'])
+    def delete_question():
+        if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
+            data = request.json
+            if data['isAdmin'] or data['isTa'] or data['isOwner']:
+                params = dict(request.args)
+                if 'id' in params: # make sure params have id
+                    question = Question.query.get(params['id'])
+                    db.session.delete(question)
+                    db.session.commit()
+
+                    return {
+                        'message': 'Successfully deleted question',
+                        'id': params['id'],
+                        'status': 200
+                    }
+                else: # handle id param not sent
+                    return {
+                        'message': 'Missing parameter: id',
+                        'status': 400
+                    }
+            else: # not authorized
+                return {
+                    'message': 'You are not authorized to perform this action',
+                    'status': 403
+                }
+        else: # invalid Content-Type
+            return {
+                'message': 'Content-Type not supported!',
+                'status': 400
+            }
+
 
 
 

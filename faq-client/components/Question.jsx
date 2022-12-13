@@ -27,8 +27,19 @@ const Question = (props) => {
         // setIsAnswered(prevIsAnswer => !prevIsAnswer)
     }
 
-    const handleDelete = () => {
-        return
+    const handleDelete = async () => {
+        const raw = await fetch('http://127.0.0.1:5000/course/question/delete?id=' + data.id, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            method: 'DELETE',
+            body: JSON.stringify({
+                isAdmin: isAdmin,
+                isTa: isTa,
+                isOwner: isOwner
+            })
+        })
     }
 
     return (
