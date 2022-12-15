@@ -31,9 +31,9 @@ def create_app():
     CORS(app)
 
     # /members: FOR TESTING ONLY - DELETE
-    @app.route("/members")
+    @app.route("/test")
     def members():
-        return {"members": ["Member1", "Member2", "Member3"]}
+        return {"message": 'success!'}
 
     # note:always check api key(s), make sure it's the correct type of data, allow if owner
 

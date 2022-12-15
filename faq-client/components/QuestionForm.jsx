@@ -73,7 +73,7 @@ const QuestionForm = (props) => {
                         multiline
                         rows={4}
                         label='Ask with all your might...'
-                        inputProps={{maxLength: 64}}
+                        inputProps={{maxLength: 1024}}
                     />
                     <TextField
                         id='submittedBy'

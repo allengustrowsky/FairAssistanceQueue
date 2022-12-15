@@ -46,7 +46,7 @@ const Question = (props) => {
         <div className="questionContainer">
             <Paper elevation={4}>
                 <Typography variant='h5' component='h3'>{data.title}</Typography>
-                <Typography variant='p' compontent='p' color='text.secondary'>{data.content}</Typography>
+                <Typography variant='p' compontent='p' color='text.secondary' sx={{padding: '10px'}}>{data.content}</Typography>
                 <div className='questionActions'>
                     {(isAdmin || isTa) &&
                         <Button color='error'>

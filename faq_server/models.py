@@ -61,7 +61,7 @@ class Course(db.Model):
 class Question(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(128), nullable=False)
-    content = db.Column(db.String(256))
+    content = db.Column(db.String(1024))
     up_votes = db.Column(db.Integer, default=0)
     submitted_by = db.Column(db.String(32))
     is_answered = db.Column(db.Boolean, default=False)
