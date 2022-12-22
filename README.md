@@ -1,25 +1,22 @@
 # FairAssistanceQueue
 
 # Sources
-- file hierarchy similar to one used by [this](https://www.youtube.com/watch?v=7LNl2JlZKHA) guy
-    - also thanks for helping me get this set up / connected
-- Fair Assistance Queue name - from Prof O.
-- Database setup - help from Tech With Tim [video](https://www.youtube.com/watch?v=dam0GPOAvVI)
+- Fair Assistance Queue name - thanks Prof O!
 
 # Setup
 
 ## Install flask:
 - Inside `faq_server` folder directory run
-`pip3 install Flask`\
+`pip3 install Flask`
 - All done.  Check to see if it's there:\
-`python3 -c "import flask; print(flask.__version__)"`\
+`python3 -c "import flask; print(flask.__version__)"`
 
 ## Setup Frontend
 - Inside `faq-client` install yarn: `npm install -g yarn`
 
 ## Install dependencies
 - inside `faq_server`: 
-    - CORS package: `pip install -U flask-cors` to install the `CORS` package used in `faq_server.py`\
+    - CORS package: `pip install -U flask-cors` to install the `CORS` package used in `faq_server.py`
     - flask_sqlalchemy: `pip install Flask-SQLAlchemy`
 - inside `faq-client`:
     - run the `yarn` command to update project with relevant packages.
