@@ -29,7 +29,7 @@
   - to see the web app in the browser, go to the url specified in the terminal.
 
 # Once the app is running
-- For a demonstration, enter the course code `CPTR-215` and the admin key `df7b5f8f-f97f-4064-9582-d23ba9afcf8b`. This admin key will work wherever 
+- For a demonstration, enter the course code `CPTR-101` and the admin key `9edc9e13-aa87-4c9e-8ac4-d14e7857abea`. This admin key will work wherever 
 an admin key is specified anywhere on the site.
 
 # Important notes
