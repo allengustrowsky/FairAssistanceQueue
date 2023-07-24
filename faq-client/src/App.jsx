@@ -20,7 +20,7 @@ function App() {
 // useEffect(() => {
 //     const getData = async () => {
 //         console.log('useEffect()')
-//         const raw = await fetch('http://127.0.0.1:5000/members')
+//         const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/members`)
 //         console.log(raw)
 //         const jsonData = await raw.json()
 //         console.log(jsonData)
@@ -42,7 +42,7 @@ const handleChange = (event) => {
 
 const handleSubmit = async () => {
     // make verification request
-    const raw = await fetch('http://127.0.0.1:5000/course/sign-in', {
+    const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/sign-in`, {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'

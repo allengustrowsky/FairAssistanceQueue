@@ -11,7 +11,7 @@ const Question = (props) => {
     const [isAnswered, setIsAnswered] = useState(false)
 
     const handleAnswer = async () => {
-        const raw = await fetch('http://127.0.0.1:5000/course/question/mark-as-answered', {
+        const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/question/mark-as-answered`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
@@ -28,7 +28,7 @@ const Question = (props) => {
     }
 
     const handleDelete = async () => {
-        const raw = await fetch('http://127.0.0.1:5000/course/question/delete?id=' + data.id, {
+        const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/question/delete?id=` + data.id, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'

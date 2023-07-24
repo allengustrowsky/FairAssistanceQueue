@@ -39,11 +39,11 @@ const Course = (props) => {
     // }
 
     const getData = async () => {
-        const raw = await fetch('http://127.0.0.1:5000/course/questions?courseCode=' + state.courseCode)
+        const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/questions?courseCode=${state.courseCode}`)
         const jsonData = await raw.json()
         setQuestionData(jsonData.data)
 
-        const rawCount = await fetch('http://127.0.0.1:5000/course/questions/num-answered?courseCode=' + state.courseCode)
+        const rawCount = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/questions/num-answered?courseCode=${state.courseCode}`)
         const jsonCountData = await rawCount.json()
         setQuestionsAnswered(jsonCountData.count)
     }

@@ -31,7 +31,7 @@ const CreateCourse = (props) => {
 
     const handleSubmit = async () => {
         // submit request to create course
-        const raw = await fetch('http://127.0.0.1:5000/course/create', {
+        const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/create`, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

@@ -30,7 +30,7 @@ const QuestionForm = (props) => {
     }
 
     const handleSubmit = async () => {
-        const raw = await fetch('http://127.0.0.1:5000/course/question/submit', {
+        const raw = await fetch(`${import.meta.env.VITE_TARGET_HOST}/course/question/submit`, {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json'
