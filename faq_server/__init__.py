@@ -1,7 +1,7 @@
 from flask import Flask, request, Response
 from flask_cors import CORS  # comment this on deployment
 from flask_sqlalchemy import SQLAlchemy
-from os import path
+import os
 import uuid
 import json
 from datetime import datetime
@@ -21,7 +21,7 @@ def create_app():
     DB_PATH = 'instance/faq_db.db'
 
     # if db doesn't exist, create it
-    if not path.exists(DB_PATH):
+    if not os.path.exists(DB_PATH):
         with app.app_context():
             db.create_all()
         print('Database successfully created')
