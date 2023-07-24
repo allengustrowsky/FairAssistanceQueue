@@ -12,13 +12,13 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
     # say where db is going to be stored (name = faq_db.db)
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///faq_db.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.dirname(__file__)}/faq_db.db'
     db.init_app(app)  # connect flask app with database
 
     # need models to load/run before calling create_all()
     from .models import Course, Question, Owner
 
-    DB_PATH = 'instance/faq_db.db'
+    DB_PATH = os.path.join(os.path.dirname(__file__), 'faq_db.db')
 
     # if db doesn't exist, create it
     if not os.path.exists(DB_PATH):
