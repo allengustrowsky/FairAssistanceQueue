@@ -35,3 +35,4 @@ an admin key is specified anywhere on the site.
 # Important notes
 - If for some strange reason things are not updating, try clearing the cache on the browser and refreshing. For example, this 
 is accomplished on mac by simultaneously holdind down `shift` + `command` + `R`.
+- Although normally bad practice, `.env` files are added here to make this project easy to set up.
