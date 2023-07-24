@@ -1,5 +1,5 @@
 from flask import Flask, request, Response
-from flask_cors import CORS  # comment this on deployment
+from flask_cors import CORS, cross_origin  # comment this on deployment
 from flask_sqlalchemy import SQLAlchemy
 import os
 import uuid
@@ -39,6 +39,7 @@ def create_app():
 
     # sign into course
     @app.route('/course/sign-in', methods=['POST'])
+    @cross_origin()
     def sign_in():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             jsonData = request.json
@@ -70,6 +71,7 @@ def create_app():
 
     # create course
     @app.route('/course/create', methods=['POST'])
+    @cross_origin()
     def create_course():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             jsonData = request.json
@@ -120,6 +122,7 @@ def create_app():
 
     # submit question
     @app.route('/course/question/submit', methods=['POST'])
+    @cross_origin()
     def ask_question():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             jsonData = request.json
@@ -139,6 +142,7 @@ def create_app():
 
     # questions answered in this course
     @app.route('/course/questions', methods=['GET'])
+    @cross_origin()
     def get_questions():
         course_code = request.args.get('courseCode')
         course = Course.query.filter_by(course_code=course_code).first()
@@ -173,6 +177,7 @@ def create_app():
 
     # mark as answered
     @app.route('/course/question/mark-as-answered', methods=['POST'])
+    @cross_origin()
     def mark_as_answered():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             data = request.json
@@ -204,6 +209,7 @@ def create_app():
 
     # get number of answered questions
     @app.route('/course/questions/num-answered', methods=['GET'])
+    @cross_origin()
     def get_question_count():
         params = dict(request.args)
         if 'courseCode' in params: # ensure courseCode is in params
@@ -229,6 +235,7 @@ def create_app():
                 
     # delete a question
     @app.route('/course/question/delete', methods=['DELETE'])
+    @cross_origin()
     def delete_question():
         if request.headers.get('Content-Type') == 'application/json': # ensure valid Content-Type
             data = request.json
